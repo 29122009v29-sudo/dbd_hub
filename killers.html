@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBD HUB | Выжившие</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dbd-red: #750101;
+            --dbd-bright-red: #ff0000;
+            --bg-dark: #0a0a0a;
+            --card-bg: #151515;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-dark); 
+            color: #eee;
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 2px solid var(--dbd-red);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 15px 0;
+            margin: 0;
+        }
+
+        .nav-item { margin: 0 20px; }
+        .nav-link {
+            text-decoration: none;
+            color: #fff;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        .nav-link:hover { color: var(--dbd-bright-red); }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.2rem;
+            color: #fff;
+            border-left: 5px solid var(--dbd-red);
+            padding-left: 20px;
+            margin: 60px 0 40px;
+            text-transform: uppercase;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid #222;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--dbd-bright-red);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 350px; 
+            object-fit: cover;
+        }
+
+        .card-body { padding: 20px; }
+        .card-body h3 { color: var(--dbd-bright-red); margin: 0 0 10px; font-family: 'Oswald', sans-serif; }
+        .card-body p { font-size: 0.95rem; color: #999; line-height: 1.5; }
+
+        footer {
+            margin-top: 10px;
+            padding: 20px 0;
+            background: #050505;
+            color: #444;
+            border-top: 1px solid #1a1a1a;
+            text-align: center;
+        }
+     
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; 
+    padding: 40px 0;
+}
+
+
+@media (max-width: 1024px) {
+    .character-grid {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+@media (max-width: 600px) {
+    .character-grid {
+        grid-template-columns: 2fr; 
+    }
+}
+
+.char-card {
+    background: #111; 
+    border: 1px solid #333;
+    text-align: center;
+    padding-bottom: 15px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+
+.char-card:hover {
+   border-color: #ff0000;
+    box-shadow: 0 0 25px #ff0000, 0 0 60px rgba(255, 0, 0, 0.3);
+    transform: translateY(-15px);
+    transition: all 0.3s ease;
+}
+
+.killer-card:hover {
+    border-color: #ff0000;
+    /* Яркое красное свечение, как в меню DBD */
+    box-shadow: 0 0 15px #ff0000, 0 0 40px rgba(255, 0, 0, 0.5);
+    transform: translateY(-5px);
+}
+.char-img {
+    width: 100%;       
+    height: 190px;     
+    object-fit: cover; 
+    display: block;
+}
+
+
+.char-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.5em;
+    color: #eee;
+    margin: 10px 0;
+    text-transform: uppercase;
+}
+
+.perks-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+
+.perk-icon {
+    width: 35px;
+    height: 35px;
+    background: #222;
+    border: 1px solid #444;
+    transform: rotate(45deg); 
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.perk-icon img {
+    width: 140%; 
+    height: auto;
+    transform: rotate(-45deg); 
+}
+.back-link-minimal {
+    display: inline-block;
+    text-decoration: none;
+    color: #ffffff;
+    font-family: 'Bebas Neue', 'Arial Black', sans-serif; 
+    font-size: 28px;
+    text-transform: uppercase;
+    
+    margin-top: 45px;  
+    margin-left: 50px; 
+    
+    transition: 0.3s;
+}
+
+.back-link-minimal:hover {
+    color: #ff0000; 
+}
+    </style>
+</head>
+<body>
+    <header>
+         <a href="index.html" class="back-link-minimal">НАЗАД</a>
+        <div class="container">
+    <h2 class="section-title">Все убийцы</h2>
+    
+    <div class="character-grid">
+        
+        <div class="char-card">
+            <img src="трапер.png" class="char-img">
+            <div class="char-name">The Trapper</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="траперп.png"></div>
+                <div class="perk-icon"><img src="траперп2.png"></div>
+                <div class="perk-icon"><img src="траперп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="призрак.png" class="char-img">
+            <div class="char-name">The Wraith</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="призракп.png"></div>
+                <div class="perk-icon"><img src="призракп2.png"></div>
+                <div class="perk-icon"><img src="призракп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="деревенщина.png" class="char-img">
+            <div class="char-name">The Hillbilly</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="деревенщинап.png"></div>
+                <div class="perk-icon"><img src="деревенщинап2.png"></div>
+                <div class="perk-icon"><img src="деревенщинап3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="нюрса.png" class="char-img">
+            <div class="char-name">The Nurse</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="нюрсап.png"></div>
+                <div class="perk-icon"><img src="нюрсап2.png"></div>
+                <div class="perk-icon"><img src="нюрсап3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="ведьма.png" class="char-img">
+            <div class="char-name">The Hag</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="ведьмап.png"></div>
+                <div class="perk-icon"><img src="ведьмап2.png"></div>
+                <div class="perk-icon"><img src="ведьмап3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="док.png" class="char-img">
+            <div class="char-name">The Doctor</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="докп.png"></div>
+                <div class="perk-icon"><img src="докп2.png"></div>
+                <div class="perk-icon"><img src="докп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="аня.png" class="char-img">
+            <div class="char-name">The Huntress</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="аняп.png"></div>
+                <div class="perk-icon"><img src="аняп2.png"></div>
+                <div class="perk-icon"><img src="аняп3.png"></div>
+            </div>
+        </div>
+ 
+        <div class="char-card">
+            <img src="клоун.png" class="char-img">
+            <div class="char-name">The Clown</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="клоунп.png"></div>
+                <div class="perk-icon"><img src="клоунп2.png"></div>
+                <div class="perk-icon"><img src="клоунп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="рин.png" class="char-img">
+            <div class="char-name">The Spirit</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="ринп.png"></div>
+                <div class="perk-icon"><img src="ринп2.png"></div>
+                <div class="perk-icon"><img src="ринп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="легион.png" class="char-img">
+            <div class="char-name">The Legion</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="легионп.png"></div>
+                <div class="perk-icon"><img src="легионп2.png"></div>
+                <div class="perk-icon"><img src="легионп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="чума.png" class="char-img">
+            <div class="char-name">The Plague</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="чумап.png"></div>
+                <div class="perk-icon"><img src="чумап2.png"></div>
+                <div class="perk-icon"><img src="чумап3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="они.png" class="char-img">
+            <div class="char-name">The Oni</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="онип.png"></div>
+                <div class="perk-icon"><img src="онип2.png"></div>
+                <div class="perk-icon"><img src="онип3.png"></div>
+            </div>
+        </div>
+        <div class="char-card">
+            <img src="стрелок.png" class="char-img">
+            <div class="char-name">The Deathslinger</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="стрелокп.png"></div>
+                <div class="perk-icon"><img src="стрелокп2.png"></div>
+                <div class="perk-icon"><img src="стрелокп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="мор.png" class="char-img">
+            <div class="char-name">The Blight</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="морп.png"></div>
+                <div class="perk-icon"><img src="морп2.png"></div>
+                <div class="perk-icon"><img src="морп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="близнецы.png" class="char-img">
+            <div class="char-name">The Twins</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="близнецып.png"></div>
+                <div class="perk-icon"><img src="близнецып2.png"></div>
+                <div class="perk-icon"><img src="близнецып3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="трюкач.png" class="char-img">
+            <div class="char-name">The Trickster</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="трюкачп.png"></div>
+                <div class="perk-icon"><img src="трюкачп2.png"></div>
+                <div class="perk-icon"><img src="трюкачп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="художница.png" class="char-img">
+            <div class="char-name">The Artist</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="художницап.png"></div>
+                <div class="perk-icon"><img src="художницап2.png"></div>
+                <div class="perk-icon"><img src="художницап3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="грязь.png" class="char-img">
+            <div class="char-name">The Dredge</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="грязьп.png"></div>
+                <div class="perk-icon"><img src="грязьп2.png"></div>
+                <div class="perk-icon"><img src="грязьп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="рыцарь.png" class="char-img">
+            <div class="char-name">The Knight</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="рыцарьп.png"></div>
+                <div class="perk-icon"><img src="рыцарьп2.png"></div>
+                <div class="perk-icon"><img src="рыцарьп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="торговка.png" class="char-img">
+            <div class="char-name">The Skull Merchant</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="торговкап.png"></div>
+                <div class="perk-icon"><img src="торговкап2.png"></div>
+                <div class="perk-icon"><img src="торговкап3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="синг.png" class="char-img">
+            <div class="char-name">The Singularity</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="сингп.png"></div>
+                <div class="perk-icon"><img src="сингп2.png"></div>
+                <div class="perk-icon"><img src="сингп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="невед.png" class="char-img">
+            <div class="char-name">The Unknown</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="неведп.png"></div>
+                <div class="perk-icon"><img src="неведп2.png"></div>
+                <div class="perk-icon"><img src="неведп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="лич.png" class="char-img">
+            <div class="char-name">The Lich</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="личп.png"></div>
+                <div class="perk-icon"><img src="личп2.png"></div>
+                <div class="perk-icon"><img src="личп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="вампир.png" class="char-img">
+            <div class="char-name">The Dark Lord</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="вампирп.png"></div>
+                <div class="perk-icon"><img src="вампирп2.png"></div>
+                <div class="perk-icon"><img src="вампирп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="маерс.png" class="char-img">
+            <div class="char-name">The Shape</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="маерсп.png"></div>
+                <div class="perk-icon"><img src="маерсп2.png"></div>
+                <div class="perk-icon"><img src="маерсп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="буба.png" class="char-img">
+            <div class="char-name">The Cannibal</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="бубап.png"></div>
+                <div class="perk-icon"><img src="бубап2.png"></div>
+                <div class="perk-icon"><img src="бубап3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="фредди.png" class="char-img">
+            <div class="char-name">The Nightmare</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="фреддип.png"></div>
+                <div class="perk-icon"><img src="фреддип2.png"></div>
+                <div class="perk-icon"><img src="фреддип3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="свинья.png" class="char-img">
+            <div class="char-name">The Pig</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="свиньяп.png"></div>
+                <div class="perk-icon"><img src="свиньяп2.png"></div>
+                <div class="perk-icon"><img src="свиньяп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="гоуст.png" class="char-img">
+            <div class="char-name">The Ghost Face</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="гоустп.png"></div>
+                <div class="perk-icon"><img src="гоустп2.png"></div>
+                <div class="perk-icon"><img src="гоустп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="демо.png" class="char-img">
+            <div class="char-name">The Demogorgon</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="демоп.png"></div>
+                <div class="perk-icon"><img src="демоп2.png"></div>
+                <div class="perk-icon"><img src="демоп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="пирамида.png" class="char-img">
+            <div class="char-name">The Executioner</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="пирамидап.png"></div>
+                <div class="perk-icon"><img src="пирамидап2.png"></div>
+                <div class="perk-icon"><img src="пирамидап3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="немезис.png" class="char-img">
+            <div class="char-name">The Nemesis</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="немезисп.png"></div>
+                <div class="perk-icon"><img src="немезисп2.png"></div>
+                <div class="perk-icon"><img src="немезисп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="онре.png" class="char-img">
+            <div class="char-name">The Onryō</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="онреп.png"></div>
+                <div class="perk-icon"><img src="онреп2.png"></div>
+                <div class="perk-icon"><img src="онреп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="вескер.png" class="char-img">
+            <div class="char-name">The Mastermind</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="вескерп.png"></div>
+                <div class="perk-icon"><img src="вескерп2.png"></div>
+                <div class="perk-icon"><img src="вескерп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="чаки.png" class="char-img">
+            <div class="char-name">The Good Guy</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="чакип.png"></div>
+                <div class="perk-icon"><img src="чакип2.png"></div>
+                <div class="perk-icon"><img src="чакип3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="ксено.png" class="char-img">
+            <div class="char-name">The Xenomorph</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="ксеноп.png"></div>
+                <div class="perk-icon"><img src="ксеноп2.png"></div>
+                <div class="perk-icon"><img src="ксеноп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="егерь.png" class="char-img">
+            <div class="char-name">The Houndmaster</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="егерьп.png"></div>
+                <div class="perk-icon"><img src="егерьп2.png"></div>
+                <div class="perk-icon"><img src="егерьп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="гуль.png" class="char-img">
+            <div class="char-name">The Ghoul</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="гульп.png"></div>
+                <div class="perk-icon"><img src="гульп2.png"></div>
+                <div class="perk-icon"><img src="гульп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="спринт.png" class="char-img">
+            <div class="char-name">The Animatronic</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="анимп.png"></div>
+                <div class="perk-icon"><img src="анимп2.png"></div>
+                <div class="perk-icon"><img src="анимп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="красу.png" class="char-img">
+            <div class="char-name">The Krasu</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="красуп.png"></div>
+                <div class="perk-icon"><img src="красуп2.png"></div>
+                <div class="perk-icon"><img src="красуп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="первый.png" class="char-img">
+            <div class="char-name">The First</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="первыйп.png"></div>
+                <div class="perk-icon"><img src="первыйп2.png"></div>
+                <div class="perk-icon"><img src="первыйп3.png"></div>
+            </div>
+        </div>
+
+    </div>
+        
+
+        </div>
+    </div>
+</div>

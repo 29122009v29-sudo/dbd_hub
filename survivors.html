@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBD HUB | Выжившие</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dbd-red: #750101;
+            --dbd-bright-red: #ff0000;
+            --bg-dark: #0a0a0a;
+            --card-bg: #151515;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-dark); 
+            color: #eee;
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 2px solid var(--dbd-red);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 15px 0;
+            margin: 0;
+        }
+
+        .nav-item { margin: 0 20px; }
+        .nav-link {
+            text-decoration: none;
+            color: #fff;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        .nav-link:hover { color: var(--dbd-bright-red); }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.2rem;
+            color: #fff;
+            border-left: 5px solid var(--dbd-red);
+            padding-left: 20px;
+            margin: 60px 0 40px;
+            text-transform: uppercase;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid #222;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--dbd-bright-red);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 350px; 
+            object-fit: cover;
+        }
+
+        .card-body { padding: 20px; }
+        .card-body h3 { color: var(--dbd-bright-red); margin: 0 0 10px; font-family: 'Oswald', sans-serif; }
+        .card-body p { font-size: 0.95rem; color: #999; line-height: 1.5; }
+
+        footer {
+            margin-top: 10px; 
+            padding: 20px 0;
+            background: #050505;
+            color: #444;
+            border-top: 1px solid #1a1a1a;
+            text-align: center;
+        }
+        
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; 
+    padding: 40px 0;
+}
+
+
+@media (max-width: 1024px) {
+    .character-grid {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+@media (max-width: 600px) {
+    .character-grid {
+        grid-template-columns: 1fr; /* 1 в ряд на телефонах */
+    }
+}
+
+
+.char-card {
+    background: #111; 
+    border: 1px solid #333;
+    text-align: center;
+    padding-bottom: 15px;
+    transition: 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.char-card:hover {
+   border-color: #00ff00;
+    box-shadow: 0 0 25px #00ff00, 0 0 60px rgba(0, 255, 0, 0.3);
+    transform: translateY(-15px);
+    transition: all 0.3s ease;
+}
+
+
+.char-img {
+    width: 100%;       
+    height: 190px;     
+    object-fit: cover; 
+    display: block;
+}
+
+.char-card:hover .char-img {
+    filter: grayscale(0%);
+}
+
+.char-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.5em;
+    color: #eee;
+    margin: 10px 0;
+    text-transform: uppercase;
+}
+
+.perks-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+
+.perk-icon {
+    width: 35px;
+    height: 35px;
+    background: #222;
+    border: 1px solid #444;
+    transform: rotate(45deg); 
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.perk-icon img {
+    width: 140%; 
+    height: auto;
+    transform: rotate(-45deg); 
+}
+.back-link-minimal {
+    display: inline-block;
+    text-decoration: none;
+    color: #ffffff;
+    font-family: 'Bebas Neue', 'Arial Black', sans-serif; /* Твой основной шрифт */
+    font-size: 28px;
+    text-transform: uppercase;
+    
+    /* Добавляем эти отступы */
+    margin-top: 45px;  /* Опускает кнопку ниже */
+    margin-left: 50px; /* Отодвигает от левого края */
+    
+    transition: 0.3s;
+}
+
+.back-link-minimal:hover {
+    color: #ff0000; /* Цвет при наведении */
+}
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="back-link-minimal">НАЗАД</a>
+        <div class="container">
+            <h2 class="section-title">Все выжившие</h2>
+    
+    <div class="character-grid">
+        
+        <div class="char-card">
+            <img src="дуайт.png" class="char-img">
+            <div class="char-name">Dwight Fairfield</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="image.png"></div>
+                <div class="perk-icon"><img src="image2.png"></div>
+                <div class="perk-icon"><img src="image4.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="мэг.png" class="char-img">
+            <div class="char-name">Meg Thomas</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="мэгп.png"></div>
+                <div class="perk-icon"><img src="мэгп2.png"></div>
+                <div class="perk-icon"><img src="мэгп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="клодетт.png" class="char-img">
+            <div class="char-name">Claudette Morel</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="клодеттп.png"></div>
+                <div class="perk-icon"><img src="клодеттп2.png"></div>
+                <div class="perk-icon"><img src="клодеттп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="джейк.png" class="char-img">
+            <div class="char-name">Jake Park</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="джейкп.png"></div>
+                <div class="perk-icon"><img src="джейкп2.png"></div>
+                <div class="perk-icon"><img src="джейкп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="нея.png" class="char-img">
+            <div class="char-name">Nea Karlsson</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="неяп.png"></div>
+                <div class="perk-icon"><img src="неяп2.png"></div>
+                <div class="perk-icon"><img src="неяп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="эйс.png" class="char-img">
+            <div class="char-name">Ace Visconti</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="эйсп.png"></div>
+                <div class="perk-icon"><img src="эйсп2.png"></div>
+                <div class="perk-icon"><img src="эйсп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="вильям.png" class="char-img">
+            <div class="char-name">William "Bill" Overbeck</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="вильямп.png"></div>
+                <div class="perk-icon"><img src="вильямп2.png"></div>
+                <div class="perk-icon"><img src="вильямп3.png"></div>
+            </div>
+        </div>
+ 
+        <div class="char-card">
+            <img src="фенг.png" class="char-img">
+            <div class="char-name">Feng Min</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="фенгп.png"></div>
+                <div class="perk-icon"><img src="фенгп2.png"></div>
+                <div class="perk-icon"><img src="фенгп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="дэвид.png" class="char-img">
+            <div class="char-name">David King</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="дэвидп.png"></div>
+                <div class="perk-icon"><img src="дэвидп2.png"></div>
+                <div class="perk-icon"><img src="дэвидп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="квентин.png" class="char-img">
+            <div class="char-name">Quentin Smith</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="квентинп.png"></div>
+                <div class="perk-icon"><img src="квентинп2.png"></div>
+                <div class="perk-icon"><img src="квентинп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="детектив.png" class="char-img">
+            <div class="char-name">Detective David Tapp</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="детективп.png"></div>
+                <div class="perk-icon"><img src="детективп2.png"></div>
+                <div class="perk-icon"><img src="детективп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="кэйт.png" class="char-img">
+            <div class="char-name">Kate Denson</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="Кєйтп.png"></div>
+                <div class="perk-icon"><img src="Кэйтп2.png"></div>
+                <div class="perk-icon"><img src="Кэйтп3.png"></div>
+            </div>
+        </div>
+        <div class="char-card">
+            <img src="адам.png" class="char-img">
+            <div class="char-name">Adam Francis</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="адамп.png"></div>
+                <div class="perk-icon"><img src="адамп2.png"></div>
+                <div class="perk-icon"><img src="адамп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="джефри.png" class="char-img">
+            <div class="char-name">Jeff Johansen</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="джефрип.png"></div>
+                <div class="perk-icon"><img src="джефрип2.png"></div>
+                <div class="perk-icon"><img src="джефрип3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="джейн.png" class="char-img">
+            <div class="char-name">Jane Romero</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="джейнп.png"></div>
+                <div class="perk-icon"><img src="джейнп2.png"></div>
+                <div class="perk-icon"><img src="джейнп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="эшли.png" class="char-img">
+            <div class="char-name">Ashley J. Williams</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="эшлип.png"></div>
+                <div class="perk-icon"><img src="эшлип2.png"></div>
+                <div class="perk-icon"><img src="эшлип3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="нэнси.png" class="char-img">
+            <div class="char-name">Nancy Wheeler</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="нэнсип.png"></div>
+                <div class="perk-icon"><img src="нэнсип2.png"></div>
+                <div class="perk-icon"><img src="нэнсип3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="стив.png" class="char-img">
+            <div class="char-name">Steve Harrington</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="стивп.png"></div>
+                <div class="perk-icon"><img src="стивп2.png"></div>
+                <div class="perk-icon"><img src="стивп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="юи кимура.png" class="char-img">
+            <div class="char-name">Yui Kimura</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="юи кимурап.png"></div>
+                <div class="perk-icon"><img src="юи кимурап2.png"></div>
+                <div class="perk-icon"><img src="юи кимурап3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="зарина.png" class="char-img">
+            <div class="char-name">Zarina Kassir</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="заринап.png"></div>
+                <div class="perk-icon"><img src="заринап2.png"></div>
+                <div class="perk-icon"><img src="заринап3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="шерил.png" class="char-img">
+            <div class="char-name">Cheryl Mason</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="шерилп.png"></div>
+                <div class="perk-icon"><img src="шерилп2.png"></div>
+                <div class="perk-icon"><img src="шерилп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="феликс.png" class="char-img">
+            <div class="char-name">Felix Richter</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="феликсп.png"></div>
+                <div class="perk-icon"><img src="феликсп2.png"></div>
+                <div class="perk-icon"><img src="феликсп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="элоди.png" class="char-img">
+            <div class="char-name">Élodie Rakoto</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="элодип.png"></div>
+                <div class="perk-icon"><img src="элодип2.png"></div>
+                <div class="perk-icon"><img src="элодип3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="юджинли.png" class="char-img">
+            <div class="char-name">Yun-Jin Lee</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="юджинлип.png"></div>
+                <div class="perk-icon"><img src="юджинлип2.png"></div>
+                <div class="perk-icon"><img src="юджинлип3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="джилл.png" class="char-img">
+            <div class="char-name">Jill Valentine</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="джиллп.png"></div>
+                <div class="perk-icon"><img src="джиллп2.png"></div>
+                <div class="perk-icon"><img src="джиллп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="леон кеннеди.png" class="char-img">
+            <div class="char-name">Leon S. Kennedy</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="леонп.png"></div>
+                <div class="perk-icon"><img src="леонп2.png"></div>
+                <div class="perk-icon"><img src="леонп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="микаэла.png" class="char-img">
+            <div class="char-name">Mikaela Reid</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="микаэлап.png"></div>
+                <div class="perk-icon"><img src="микаэлап2.png"></div>
+                <div class="perk-icon"><img src="микаэлап3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="джон.png" class="char-img">
+            <div class="char-name">Jonah Vasquez</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="джонп.png"></div>
+                <div class="perk-icon"><img src="джонп2.png"></div>
+                <div class="perk-icon"><img src="джонп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="йоичи асакава.png" class="char-img">
+            <div class="char-name">Yoichi Asakawa</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="йоичип.png"></div>
+                <div class="perk-icon"><img src="йоичип2.png"></div>
+                <div class="perk-icon"><img src="йоичип3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="хэдди каур.png" class="char-img">
+            <div class="char-name">Haddie Kaur</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="хэддип.png"></div>
+                <div class="perk-icon"><img src="хэддип2.png"></div>
+                <div class="perk-icon"><img src="хэддип3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="Снимок экрана 2026-04-24 134438.png" class="char-img">
+            <div class="char-name">Ada Wong</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="адап.png"></div>
+                <div class="perk-icon"><img src="адап2.png"></div>
+                <div class="perk-icon"><img src="адап3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="ребекка.png" class="char-img">
+            <div class="char-name">Rebecca Chambers</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="ребеккап.png"></div>
+                <div class="perk-icon"><img src="ребеккап2.png"></div>
+                <div class="perk-icon"><img src="ребеккап3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="витторио.png" class="char-img">
+            <div class="char-name">Vittorio Toscano</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="витториоп.png"></div>
+                <div class="perk-icon"><img src="витториоп2.png"></div>
+                <div class="perk-icon"><img src="витториоп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="талита.png" class="char-img">
+            <div class="char-name">Thalita Lyra</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="талитап.png"></div>
+                <div class="perk-icon"><img src="талитап2.png"></div>
+                <div class="perk-icon"><img src="талитап3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="ренато.png" class="char-img">
+            <div class="char-name">Renato Lyra</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="ренатоп.png"></div>
+                <div class="perk-icon"><img src="ренатоп2.png"></div>
+                <div class="perk-icon"><img src="ренатоп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="габриель.png" class="char-img">
+            <div class="char-name">Gabriel Soma</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="габриельп.png"></div>
+                <div class="perk-icon"><img src="габриельп2.png"></div>
+                <div class="perk-icon"><img src="габриельп3.png"></div>
+            </div>
+        </div>
+        <div class="char-card">
+            <img src="николас.png" class="char-img">
+            <div class="char-name">Nicolas Cage</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="николасп.png"></div>
+                <div class="perk-icon"><img src="николасп2.png"></div>
+                <div class="perk-icon"><img src="николасп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="элен риплей.png" class="char-img">
+            <div class="char-name">Ellen Ripley</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="эленп.png"></div>
+                <div class="perk-icon"><img src="эленп2.png"></div>
+                <div class="perk-icon"><img src="эленп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="сейбл.png" class="char-img">
+            <div class="char-name">Sable Ward</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="сейблп.png"></div>
+                <div class="perk-icon"><img src="сейблп2.png"></div>
+                <div class="perk-icon"><img src="сейблп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="аестри язар.png" class="char-img">
+            <div class="char-name">Aestri Yazar</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="аэстри язарп.png"></div>
+                <div class="perk-icon"><img src="аэстри язарп2.png"></div>
+                <div class="perk-icon"><img src="аэстри язарп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="лара крофт.png" class="char-img">
+            <div class="char-name">Lara Croft</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="ларап.png"></div>
+                <div class="perk-icon"><img src="ларап2.png"></div>
+                <div class="perk-icon"><img src="ларап3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="тревор.png" class="char-img">
+            <div class="char-name">Trevor Belmont</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="треворп.png"></div>
+                <div class="perk-icon"><img src="треворп2.png"></div>
+                <div class="perk-icon"><img src="треворп3.png"></div>
+            </div>
+        </div>
+
+        <div class="char-card">
+            <img src="алан вэйк.png" class="char-img">
+            <div class="char-name">Alan Wake</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="аланп.png"></div>
+                <div class="perk-icon"><img src="аланп2.png"></div>
+                <div class="perk-icon"><img src="аланп3.png"></div>
+            </div>
+        </div>
+        
+        <div class="char-card">
+            <img src="одинадцатая.png" class="char-img">
+            <div class="char-name">Eleven</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="одинп.png"></div>
+                <div class="perk-icon"><img src="одинп2.png"></div>
+                <div class="perk-icon"><img src="одинп3.png"></div>
+            </div>
+        </div>
+        
+        <div class="char-card">
+            <img src="дастин.png" class="char-img">
+            <div class="char-name">Dustin Henderson</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="дастинп.png"></div>
+                <div class="perk-icon"><img src="дастинп2.png"></div>
+                <div class="perk-icon"><img src="дастинп3.png"></div>
+            </div>
+        </div>
+        
+        <div class="char-card">
+            <img src="мишон.png" class="char-img">
+            <div class="char-name">Michonne</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="мишонп.png"></div>
+                <div class="perk-icon"><img src="мишонп2.png"></div>
+                <div class="perk-icon"><img src="мишонп3.png"></div>
+            </div>
+        </div>
+        
+        <div class="char-card">
+            <img src="рик гримс.png" class="char-img">
+            <div class="char-name">Rick Grimes</div>
+            <div class="perks-row">
+                <div class="perk-icon"><img src="рикп.png"></div>
+                <div class="perk-icon"><img src="рикп2.png"></div>
+                <div class="perk-icon"><img src="рикп3.png"></div>
+            </div>
+        </div>
+
+    </div>
+        
+
+        </div>
+    </div>
+</div>

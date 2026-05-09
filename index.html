@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBD HUB | Главная</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dbd-red: #8b0000;
+            --dbd-bright-red: #ff4d4d;
+            --bg-dark: #0a0a0a;
+            --card-bg: #151515;
+        }
+
+
+        body {
+    margin: 0;
+    background-color: #0a0a0a; 
+    color: #eee;
+    font-family: 'Roboto', sans-serif;
+}
+
+        h1, h2, h3, .nav-link {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -100;
+            object-fit: cover;
+            filter: brightness(20%);
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 2px solid var(--dbd-red);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item { margin: 0 20px; }
+        
+        .nav-link {
+            text-decoration: none;
+            color: #fff;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover { color: var(--dbd-bright-red); }
+
+        .hero {
+    padding: 80px 20px 40px; 
+    text-align: center;
+    background: none; 
+}
+
+       .hero-content h1 {
+    font-size: 5rem;
+    margin: 0;
+    color: #ff0000; 
+    letter-spacing: 5px;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 
+                 0 0 20px rgba(255, 0, 0, 0.5), 
+                 0 0 40px rgba(255, 0, 0, 0.3);
+}
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 20px auto;
+            color: #ccc;
+        }
+
+       .section-title {
+    font-size: 1.8rem;
+    color: white;
+    border-left: 4px solid #ff0000;
+    padding-left: 15px;
+    margin: 60px 0 30px;
+    text-transform: uppercase;
+}
+
+        .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px; 
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid #222;
+    border-radius: 4px; 
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card:hover {
+    border-color: var(--dbd-bright-red);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
+}
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            background-color: #333;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-body h3 {
+            margin: 0 0 10px;
+            color: var(--dbd-bright-red);
+        }
+
+        .card-body p {
+            font-size: 0.9rem;
+            color: #999;
+            margin: 0;
+        }
+
+    footer {
+    margin-top: 10px;    
+    padding: 20px 0;
+    background: #050505;
+    color: #444;
+    border-top: 1px solid #1a1a1a;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.85rem;
+}
+    </style>
+</head>
+<body>
+
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="bg_videomp4.mp4" type="video/mp4">
+    </video>
+
+    <header>
+        <div class="container">
+          <ul class="nav">
+    <li class="nav-item"><a href="index.html" class="nav-link">Новости</a></li>
+    <li class="nav-item"><a href="survivors.html" class="nav-link">Выжившие</a></li>
+    <li class="nav-item"><a href="killers.html" class="nav-link">Убийцы</a></li>
+</ul>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>DEAD BY DAYLIGHT</h1>
+            <p>Твой главный проводник по Туману Сущности. Свежие новости, сборки и стратегии выживания.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">Последние новости</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://games.gg/cdn-cgi/image/width=1920,quality=75,format=auto,fit=scale-down,metadata=none,onerror=redirect/https://assets.games.gg/dbd_ptb_april_2026_2v8_update_hero_4cf2b9f3da.webp" alt="News" class="card-img">
+                <div class="card-body">
+                    <h3>Обновление 7.1.0</h3>
+                    <p>Узнайте об изменениях в балансе и новых способностях Убийц в этом патче.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://forums.bhvr.com/dead-by-daylight/home/leaving?allowTrusted=1&target=https%3A%2F%2Fus.v-cdn.net%2F6030815%2Fuploads%2FNTOKT5B7HCKA%2F226b46e3-fff4-41f2-8cef-6ec8069479bf.jpeg" alt="Guides" class="card-img">
+                <div class="card-body">
+                    <h3>Тир-лист выживших</h3>
+                    <p>Кто лучше всех справляется с погоней в текущей мете? Наш детальный разбор.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="Gemini_Generated_Image_5y3fis5y3fis5y3f.png" alt="Tips" class="card-img">
+                <div class="card-body">
+                    <h3>Секреты Тумана</h3>
+                    <p>Топ 10 советов для новичков, которые помогут прожить дольше 5 минут.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Популярные гайды</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://i.ytimg.com/vi/hEUTdnK6V7E/maxresdefault.jpg" alt="Looping" class="card-img">
+                <div class="card-body">
+                    <h3>Как мансить как профи</h3>
+                    <p>Изучаем основные структуры карт и тайминги прыжков.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://i.playground.ru/e/weProd_IsE2azzc_K63F_Q.png" alt="Perks" class="card-img">
+                <div class="card-body">
+                    <h3>Билд на Клодетту</h3>
+                    <p>Максимальный стелс и быстрое лечение — лучший выбор для соло-игры.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 DBD HUB. Все права защищены Сущностью.</p>
+    </footer>
+
+</body>
+</html>
